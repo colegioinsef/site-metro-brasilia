@@ -1,0 +1,128 @@
+import os
+from zipfile import ZipFile
+
+# Conteúdo dos arquivos HTML e CSS
+arquivos = {
+    "index.html": """<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extensão do Metrô - Setor O</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Extensão do Metrô de Brasília no Setor O</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="andamento.html">Andamento da Obra</a></li>
+            <li><a href="investimentos.html">Investimentos</a></li>
+            <li><a href="equipe.html">Equipe Técnica</a></li>
+            <li><a href="participacao.html">Participação</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <section>
+        <h2>Bem-vindo!</h2>
+        <p>Este site foi criado para manter a população informada sobre o progresso da ampliação do metrô no Setor O de Brasília.</p>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2025 Extensão do Metrô de Brasília</p>
+</footer>
+</body>
+</html>""",
+
+    "andamento.html": """<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><title>Andamento</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<h2>Andamento da Obra</h2>
+<ul>
+<li><strong>Status:</strong> Sondagens e estudos geotécnicos</li>
+<li><strong>Previsão:</strong> Dez/2027</li>
+<li><strong>Atualizado:</strong> Maio/2025</li>
+</ul>
+<p><a href="#">📄 Relatório Técnico</a></p>
+<p><a href="#">📷 Fotos</a></p>
+</body>
+</html>""",
+
+    "investimentos.html": """<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><title>Investimentos</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<h2>Investimentos</h2>
+<ul>
+<li><a href="#">💵 Orçamento Total</a></li>
+<li><a href="#">📋 Honorários</a></li>
+<li><a href="#">🧱 Materiais</a></li>
+<li><a href="#">📑 Contratos</a></li>
+</ul>
+</body>
+</html>""",
+
+    "equipe.html": """<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><title>Equipe</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<h2>Equipe Envolvida</h2>
+<ul>
+<li><a href="#">👷 Lista Técnica</a></li>
+<li><a href="#">🏢 Empresas</a></li>
+<li><a href="#">📆 Plano</a></li>
+</ul>
+</body>
+</html>""",
+
+    "participacao.html": """<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><title>Participação</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<h2>Participe!</h2>
+<form action="enviar_mensagem.php" method="post">
+<label>Nome: <input type="text" name="nome"></label><br>
+<label>Email: <input type="email" name="email"></label><br>
+<label>Mensagem:<br><textarea name="mensagem" rows="4" cols="50"></textarea></label><br>
+<input type="submit" value="Enviar">
+</form>
+</body>
+</html>""",
+
+    "style.css": """body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0; padding: 0;
+}
+header {
+    background-color: #004080;
+    color: white; padding: 20px;
+    text-align: center;
+}
+nav ul { list-style: none; padding: 0; }
+nav ul li { display: inline; margin-right: 15px; }
+nav ul li a { color: white; text-decoration: none; }
+main { padding: 20px; }
+footer {
+    background-color: #004080;
+    color: white; text-align: center;
+    padding: 10px; position: fixed;
+    width: 100%; bottom: 0;
+}"""
+}
+
+# Criar pasta e salvar arquivos
+os.makedirs("site_metro", exist_ok=True)
+for nome, conteudo in arquivos.items():
+    with open(os.path.join("site_metro", nome), "w", encoding="utf-8") as f:
+        f.write(conteudo)
+
+# Criar arquivo zip
+with ZipFile("site_metro_brasilia.zip", "w") as zipf:
+    for nome in arquivos:
+        zipf.write(os.path.join("site_metro", nome), arcname=nome)
+
+print("Arquivo site_metro_brasilia.zip criado com sucesso!")
